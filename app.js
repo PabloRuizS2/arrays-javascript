@@ -28,35 +28,44 @@ componentes.push(new Producto("memoria ram 16gb", 7, 7000, "Negro", 40));
 notebooks.push(new Producto("notebook asus", 8, 180000, "Negro", 10));
 notebooks.push(new Producto("notebook samsung", 9, 130000, "blanca", 10));
 
+//DOM
 
-//Recorro los arrays para mostrarle los productos al usuario
+let sectionProductos = document.getElementById("section-productos");
+
+
+function crearCard (producto) {
+    
+    let card = document.createElement("div");
+    card.setAttribute("class", "card card-producto");
+    card.style.width = "20rem";
+    
+    sectionProductos.appendChild(card);
+    
+    let cardImg = document.createElement("div");
+    cardImg.innerHTML = `<img src="./imagenes/${producto.id}.jpg" class="card-img-top" alt="${producto.nombre}"></img>`;
+    card.appendChild(cardImg);
+    
+    let cardBody = document.createElement("div");
+    cardBody.innerHTML = `<h5 class="card-title">${producto.nombre}</h5>
+                            <p class="card-text"> Precio: $${producto.precio} </p>
+                            <button class="btn btn-dark">Comprar</button>`;
+    card.appendChild(cardBody);
+    cardBody.setAttribute("class", "card-body");
+}
+
+
 for (const periferico of perifericos) {
-    alert("ID (" + periferico.id + ") - " + periferico.nombre);
+   crearCard(periferico);
 }
+
 for (const componente of componentes) {
-    alert("ID (" + componente.id + ") - " + componente.nombre);
+    crearCard(componente);
 }
+
 for (const notebook of notebooks) {
-    alert("ID (" + notebook.id + ") - " + notebook.nombre);
+    crearCard(notebook);
 }
 
-//Solicito al usuario el ID de la prenda
-let productoSeleccionada = parseInt(prompt("Ingrese el ID de la producto que desea comprar:"));
-const perifericoBuscada = perifericos.find(periferico => periferico.id === productoSeleccionada);
-const componenteBuscado = componentes.find(componente => componente.id == productoSeleccionada);
-const notebookBuscado = notebooks.find(notebook => notebook.id == productoSeleccionada);
-
-if (productoSeleccionada <= 0) {
-    alert("Ingresa un ID valido");
-} else if (productoSeleccionada <=4) {
-    alert("Seleccionaste " +  perifericoBuscada.nombre + "\nToca aceptar para agregarlo a tu carrito"); 
-} else if (productoSeleccionada <=7) {
-    alert("Seleccionaste " + componenteBuscado.nombre + "\nToca aceptar para agregarlo a tu carrito");
-} else if (productoSeleccionada <= 9) {
-    alert("Seleccionaste " + notebookBuscado.nombre + "\nToca aceptar para agregarlo a tu carrito");
-} else {
-    alert("Ingresa un ID valido");
-}
 
 
 
